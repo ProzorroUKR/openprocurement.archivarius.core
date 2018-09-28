@@ -2,6 +2,7 @@
 import unittest
 import uuid
 import json
+import os
 from base64 import b64decode
 from pyramid import testing
 from openprocurement.api.auth import AuthenticationPolicy
@@ -67,7 +68,7 @@ class TestUtils(unittest.TestCase):
         cls.authz_policy = ACLAuthorizationPolicy()
 
         cls.authn_policy = AuthenticationPolicy(
-            'openprocurement/archivarius/core/tests/auth.ini', __name__)
+            "{}/auth.ini".format(os.path.dirname(os.path.abspath(__file__))), __name__)
         cls.config.set_authorization_policy(cls.authz_policy)
         cls.config.set_authentication_policy(cls.authn_policy)
         cls.config.registry.db = MagicMock()
